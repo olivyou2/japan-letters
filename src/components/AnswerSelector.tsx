@@ -14,7 +14,6 @@ const Wrapper = styled.div`
 
 export default function AnswerSelector() {
   const { answers } = useAnswers();
-  const [round, setRound] = useState(0);
 
   const { select, setSelect } = useSelect();
 
@@ -36,16 +35,15 @@ export default function AnswerSelector() {
     setSelect(true, answer);
 
     setTimeout(() => {
-      setRound((prev) => prev + 1);
       nextProblem(undefined);
     }, 1000);
   };
 
   return (
     <Wrapper>
-      {answerArray.map((answer) => (
+      {answerArray.map((answer, idx) => (
         <AnswerSelectorBtn
-          key={answer + round}
+          key={idx}
           content={answer}
           state={
             selected && (answer == correctAnswer || answer == selectedAnswer)
