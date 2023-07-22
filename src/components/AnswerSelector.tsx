@@ -3,7 +3,6 @@ import { useAnswers } from "../states/AnswersState";
 import AnswerSelectorBtn from "./AnswerSelectorBtn";
 import { useCorrectState } from "../states/CorretState";
 import { useSelect } from "../states/SelectState";
-import { useState } from "react";
 
 const Wrapper = styled.div`
   display: grid;
