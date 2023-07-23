@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { useSideMenu } from "../states/SideMenuState";
 import SideMenuBtn from "./SideMenuBtn";
 import { StudyType } from "../states/StudyTypeState";
+import SideMenuLabel from "./SideMenuLabel";
 
 const SideMenuWrapper = styled.div<{ $open: boolean }>`
   position: fixed;
@@ -41,6 +42,7 @@ export default function SideMenu() {
       <SideMenuWrapper $open={sideMenu}>
         <SideMenuBtn type={StudyType.Hiragana} />
         <SideMenuBtn type={StudyType.Gatagana} />
+        <SideMenuLabel text={"개발 박원호"} />
       </SideMenuWrapper>
     </>
   );

@@ -33,7 +33,7 @@ export default function LetterTypeSelectorBtn({
 
   const onClick = () => {
     setLetterType(letterType);
-    nextProblem(letterType);
+    nextProblem(letterType, undefined);
   };
 
   return (

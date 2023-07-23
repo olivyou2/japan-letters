@@ -34,7 +34,7 @@ export default function AnswerSelector() {
     setSelect(true, answer);
 
     setTimeout(() => {
-      nextProblem(undefined);
+      nextProblem(undefined, undefined);
     }, 1000);
   };
 

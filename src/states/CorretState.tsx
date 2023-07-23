@@ -4,10 +4,11 @@ import {
   getLetterTypeName,
   useLetterType,
 } from "./LetterTypeState";
-import { hiraganaSet } from "../assets/dataset";
+import { hiraganaSet, katakanaSet } from "../assets/dataset";
 import { AnswerClass, useAnswers } from "./AnswersState";
 import { useCurrentLetter } from "./CurrentLetterState";
 import { useSelect } from "./SelectState";
+import { StudyType, useStudyType } from "./StudyTypeState";
 
 const correctAtom = atom<string>({
   key: "correct",
@@ -16,20 +17,30 @@ const correctAtom = atom<string>({
 
 export const useCorrectState = () => {
   const [correct, setCorrect] = useRecoilState(correctAtom);
-  const { setSelect } = useSelect();
 
   const { setCurrentLetter } = useCurrentLetter();
   const { setAnswers } = useAnswers();
-  const { letterType } = useLetterType();
+  const { setSelect } = useSelect();
 
-  const nextProblem = (customLetterType: LetterType | undefined) => {
+  const { letterType } = useLetterType();
+  const { studyType: innerStudyType } = useStudyType();
+
+  const nextProblem = (customLetterType: LetterType | undefined, customStudyType: StudyType | undefined) => {
     const letterName = getLetterTypeName(
       customLetterType === undefined ? letterType : customLetterType
     );
 
+    const studyType = customStudyType === undefined ? innerStudyType : customStudyType;
+
     if (letterName === undefined) return;
 
-    const wordSet = hiraganaSet[letterName];
+    let wordSet: string[][] = [];
+
+    if (studyType === StudyType.Hiragana) {
+      wordSet = hiraganaSet[letterName];
+    } else if (studyType === StudyType.Gatagana) {
+      wordSet = katakanaSet[letterName];
+    }
 
     const problem = wordSet[Math.floor(Math.random() * wordSet.length)];
     const correctAnswer = problem[1];

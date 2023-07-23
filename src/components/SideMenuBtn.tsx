@@ -6,6 +6,8 @@ import {
   useStudyType,
 } from "../states/StudyTypeState";
 import { useSideMenu } from "../states/SideMenuState";
+import { useCorrectState } from "../states/CorretState";
+import { LetterType, useLetterType } from "../states/LetterTypeState";
 
 const BtnWrapper = styled.div<{ $activated: boolean }>`
   width: 100%;
@@ -24,8 +26,12 @@ const BtnWrapper = styled.div<{ $activated: boolean }>`
 `;
 
 export default function SideMenuBtn({ type }: { type: StudyType }) {
-  const { setStudyType } = useStudyType();
+  const { setLetterType } = useLetterType();
+
   const { closeSideMenu } = useSideMenu();
+  const { setStudyType } = useStudyType();
+  const { nextProblem } = useCorrectState();
+
   const [activated, setActivated] = useState(false);
 
   const onHoverIn = () => {
@@ -38,7 +44,14 @@ export default function SideMenuBtn({ type }: { type: StudyType }) {
 
   const onClicked = () => {
     setStudyType(type);
+    if (type === StudyType.Gatagana) {
+      setLetterType(LetterType.가타카나_아행);
+    } else if (type === StudyType.Hiragana) {
+      setLetterType(LetterType.아행);
+    }
     closeSideMenu();
+
+    nextProblem(undefined, type);
   };
 
   return (

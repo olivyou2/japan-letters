@@ -4,6 +4,8 @@ import LetterTypeSelector from "./components/LetterTypeSelector";
 import SideMenu from "./components/SideMenu";
 import Letter from "./components/Letter";
 import AnswerSelector from "./components/AnswerSelector";
+import { useCorrectState } from "./states/CorretState";
+import { useEffect } from "react";
 
 const Content = styled.div`
   margin-top: 80px;
@@ -19,6 +21,12 @@ const HorizonPadding = styled.div<{ $height: number }>`
 `;
 
 function App() {
+  const { nextProblem } = useCorrectState();
+
+  useEffect(() => {
+    nextProblem(undefined, undefined);
+  }, []);
+
   return (
     <>
       <Header />
