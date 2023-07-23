@@ -6,6 +6,7 @@ import Letter from "./components/Letter";
 import AnswerSelector from "./components/AnswerSelector";
 import { useCorrectState } from "./states/CorretState";
 import { useEffect } from "react";
+import ReactGA from "react-ga4";
 
 const Content = styled.div`
   margin-top: 80px;
@@ -25,6 +26,8 @@ function App() {
 
   useEffect(() => {
     nextProblem(undefined, undefined);
+
+    ReactGA.initialize("G-850MRBM53D");
   }, []);
 
   return (
